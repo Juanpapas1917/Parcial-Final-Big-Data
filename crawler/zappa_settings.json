@@ -10,19 +10,21 @@
             "concurrent"
         ],
         "profile_name": "default",
-        "project_name": "download",
+        "project_name": "crawler",
         "runtime": "python3.9",
-        "s3_bucket": "zappa-fnl5199hg",
+        "s3_bucket": "zappa-hg9a0zw00",
         "apigateway_enabled": false,
         "manage_roles": false,
         "role_name": "LabRole",
         "events": [
             {
                 "function": "app.lambda_handler",
-                "expression": "cron(40 19 * * ? *)"
+                "expression": "cron(5 20 * * ? *)"
             }
         ],
-        "timeout_seconds": 300,
-        "keep_warm": false
+        "keep_warm": false,
+        "environment_variables": {
+            "GLUE_CRAWLER_NAME": "elpropiocrawler" // <<-- Name of your Glue Crawler
+        },
     }
 }

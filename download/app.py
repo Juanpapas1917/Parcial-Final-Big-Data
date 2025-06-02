@@ -8,7 +8,7 @@ import time
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-BUCKET_NAME = 'examenfinalbigdata'
+BUCKET_NAME = 'headlines2025'
 SITES ={'eltiempo': 'https://www.eltiempo.com','publimetro': 'https://www.publimetro.co'}
 
 def download_and_save_to_s3(site_name, url):
@@ -23,7 +23,7 @@ def download_and_save_to_s3(site_name, url):
 
 
         s3 = boto3.client('s3')
-        key = f'headlines/raw/{site_name}-{datetime.now().strftime("%Y-%m-%d")}.html'
+        key = f'raw/{site_name}-{datetime.now().strftime("%Y-%m-%d")}.html'
         s3.put_object(
             Bucket=BUCKET_NAME,
             Key=key,
