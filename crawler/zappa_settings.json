@@ -9,7 +9,6 @@
             "s3transfer",
             "concurrent"
         ],
-        "profile_name": "default",
         "project_name": "crawler",
         "runtime": "python3.9",
         "s3_bucket": "zappa-hg9a0zw00",
