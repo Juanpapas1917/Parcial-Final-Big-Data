@@ -42,8 +42,8 @@ jobs:
            python-version: '3.10.12'
       - name: Crear venv
         run: |
-          python -m venv venv
-          source venv/bin/activate
+          python -m venv .venv
+          source .venv/bin/activate
           
       - name: Install dependencies
         run: |
@@ -76,17 +76,17 @@ jobs:
       - name: actualiza download
         working-directory: download
         run: |
-          source ../venv/bin/activate
+          source ../.venv/bin/activate
           zappa update dev
     
       - name:  actualiza  process
         working-directory: process
         run: |
-          source ../venv/bin/activate
+          source ../.venv/bin/activate
           zappa update dev
           
       - name: actualiza  crawler
         working-directory: crawler
         run: |
-          source ../venv/bin/activate
+          source ../.venv/bin/activate
           zappa update dev
