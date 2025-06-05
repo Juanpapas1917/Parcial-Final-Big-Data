@@ -63,8 +63,8 @@ def test_process_eltiempo_success(mock_s3, patch_datetime):
         'Records': [
             {
                 's3': {
-                    'bucket': {'name': 'examenfinalbigdata'},
-                    'object': {'key': 'headlines/raw/eltiempo-2025-06-10.html'}
+                    'bucket': {'name': 'headlines2025'},
+                    'object': {'key': 'raw/eltiempo-2025-06-10.html'}
                 }
             }
         ]
@@ -80,8 +80,8 @@ def test_process_eltiempo_success(mock_s3, patch_datetime):
 
     # Comprobamos que get_object se llamó con los parámetros correctos
     mock_s3.get_object.assert_called_once_with(
-        Bucket='examenfinalbigdata',
-        Key='headlines/raw/eltiempo-2025-06-10.html'
+        Bucket='headlines2025',
+        Key='raw/eltiempo-2025-06-10.html'
     )
 
     # Ahora debe invocar put_object exactamente una vez
@@ -89,9 +89,9 @@ def test_process_eltiempo_success(mock_s3, patch_datetime):
 
     put_args = mock_s3.put_object.call_args[1]
     # Bucket debe ser el mismo
-    assert put_args['Bucket'] == 'examenfinalbigdata'
+    assert put_args['Bucket'] == 'headlines2025'
     # El Key debe contener "periodico=eltiempo/year=2025/month=06/day=10/eltiempo.csv"
-    assert 'headlines/final/periodico=eltiempo/year=2025/month=06/day=10/eltiempo.csv' in put_args['Key']
+    assert 'final/periodico=eltiempo/year=2025/month=06/day=10/eltiempo.csv' in put_args['Key']
     # ContentType debe ser 'text/csv'
     assert put_args['ContentType'] == 'text/csv'
 
@@ -122,8 +122,8 @@ def test_process_publimetro_success(mock_s3, patch_datetime):
         'Records': [
             {
                 's3': {
-                    'bucket': {'name': 'examenfinalbigdata'},
-                    'object': {'key': 'headlines/raw/publimetro-2025-06-10.html'}
+                    'bucket': {'name': 'headlines2025'},
+                    'object': {'key': 'raw/publimetro-2025-06-10.html'}
                 }
             }
         ]
@@ -138,8 +138,8 @@ def test_process_publimetro_success(mock_s3, patch_datetime):
 
     # Confirmamos que get_object recibió los parámetros correctos
     mock_s3.get_object.assert_called_once_with(
-        Bucket='examenfinalbigdata',
-        Key='headlines/raw/publimetro-2025-06-10.html'
+        Bucket='headlines2025',
+        Key='raw/publimetro-2025-06-10.html'
     )
 
     # Debe invocar put_object EXACTAMENTE una vez
@@ -147,7 +147,7 @@ def test_process_publimetro_success(mock_s3, patch_datetime):
 
     put_args = mock_s3.put_object.call_args[1]
     # Verificamos que la key contenga "...periodico=publimetro/year=2025/month=06/day=10/publimetro.csv"
-    assert 'headlines/final/periodico=publimetro/year=2025/month=06/day=10/publimetro.csv' in put_args['Key']
+    assert 'final/periodico=publimetro/year=2025/month=06/day=10/publimetro.csv' in put_args['Key']
 
     # Comprobamos que el Body contenga 1 header + 2 filas
     body_str = put_args['Body'].decode('utf-8')
@@ -170,8 +170,8 @@ def test_process_non_html_key(mock_s3):
         'Records': [
             {
                 's3': {
-                    'bucket': {'name': 'examenfinalbigdata'},
-                    'object': {'key': 'headlines/raw/archivo.txt'}
+                    'bucket': {'name': 'headlines2025'},
+                    'object': {'key': 'raw/archivo.txt'}
                 }
             }
         ]
@@ -195,8 +195,8 @@ def test_process_get_object_error(mock_s3):
         'Records': [
             {
                 's3': {
-                    'bucket': {'name': 'examenfinalbigdata'},
-                    'object': {'key': 'headlines/raw/eltiempo-2025-06-10.html'}
+                    'bucket': {'name': 'headlines2025'},
+                    'object': {'key': 'raw/eltiempo-2025-06-10.html'}
                 }
             }
         ]
@@ -222,8 +222,8 @@ def test_process_html_without_articles(mock_s3, patch_datetime):
         'Records': [
             {
                 's3': {
-                    'bucket': {'name': 'examenfinalbigdata'},
-                    'object': {'key': 'headlines/raw/eltiempo-2025-06-10.html'}
+                    'bucket': {'name': 'headlines2025'},
+                    'object': {'key': 'raw/eltiempo-2025-06-10.html'}
                 }
             }
         ]

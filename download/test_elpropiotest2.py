@@ -51,7 +51,7 @@ def test_download_and_save_success(mock_get, mock_boto3):
     # 4) Verificar retorno y que put_object fue llamado correctamente
     assert success is True
     mock_boto3.client.assert_called_once_with('s3')
-    expected_key = "headlines/raw/eltiempo-2025-06-10.html"
+    expected_key = "raw/eltiempo-2025-06-10.html"
     mock_s3_client.put_object.assert_called_once_with(
         Bucket=app.BUCKET_NAME,
         Key=expected_key,
